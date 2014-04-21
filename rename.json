@@ -1,5 +1,5 @@
 {
-  "src/name.js": "src/jquery.{%= name %}.js",
-  "test/name_test.js": "test/{%= name %}_test.js",
-  "test/name.html": "test/{%= name %}.html"
+  "author_name": "Stephen Crane",
+  "author_email": "none",
+  "author_url": "http://stephencranedesign.com/"
 }
