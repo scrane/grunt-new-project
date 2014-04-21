@@ -1,21 +1,21 @@
 /*
-* grunt-init-jquery
-* https://gruntjs.com/
-*
-* Copyright (c) 2013 "Cowboy" Ben Alman, contributors
-* Licensed under the MIT license.
-*/
+ * grunt-new-project
+ * https://github.com/stephencranedesign/grunt-new-project
+ *
+ * Copyright (c) 2014 "Cowboy" Stephen Crane, contributors
+ * Licensed under the MIT license.
+ */
 
 'use strict';
 
 // Basic template description.
-exports.description = 'Basic file structure for Blue Compass Interactive New Project.';
+exports.description = 'Basic Blue Compass Project';
 
 // Template-specific notes to be displayed before question prompts.
-exports.notes = 'notes..';
+exports.notes = '';
 
 // Template-specific notes to be displayed after question prompts.
-exports.after = 'after text';
+exports.after = '';
 
 // Any existing file or directory matching this wildcard will cause a warning.
 exports.warnOn = '*';
@@ -23,15 +23,15 @@ exports.warnOn = '*';
 // The actual init template.
 exports.template = function(grunt, init, done) {
 
-  init.process({type: 'jquery'}, [
+  init.process({type: 'new-project'}, [
     // Prompt for these values.
     init.prompt('name'),
     init.prompt('title', function(value, data, done) {
-      // Fix jQuery capitalization.
-      value = value.replace(/jquery/gi, 'jQuery');
+      // Fix new-project capitalization.
+      value = value.replace(/new-project/gi, 'new-project');
       done(null, value);
     }),
-    init.prompt('description', 'The best jQuery plugin ever.'),
+    init.prompt('description', 'The best new-project plugin ever.'),
     init.prompt('version'),
     init.prompt('repository'),
     init.prompt('homepage'),
@@ -40,11 +40,11 @@ exports.template = function(grunt, init, done) {
     init.prompt('author_name'),
     init.prompt('author_email'),
     init.prompt('author_url'),
-    init.prompt('jquery_version')
+    init.prompt('new-project_version')
   ], function(err, props) {
     // A few additional properties.
-    props.jqueryjson = props.name + '.jquery.json';
-    props.dependencies = {jquery: props.jquery_version || '>= 1'};
+    props.project.json = props.name + 'new-project.json';
+    props.dependencies = {project: props.project_version || '>= 1'};
 
     props.keywords = [];
 
@@ -59,23 +59,31 @@ exports.template = function(grunt, init, done) {
 
     // Generate package.json file, used by npm and grunt.
     init.writePackageJSON('package.json', {
-      name: 'jquery-plugin',
+      name: 'new-project',
       version: '0.0.0-ignored',
-      npm_test: 'grunt qunit',
+
       // TODO: pull from grunt's package.json
       node_version: '>= 0.8.0',
       devDependencies: {
+        "grunt" :              "~0.4.0",
         'grunt-contrib-jshint': '~0.6.0',
         'grunt-contrib-qunit': '~0.2.0',
         'grunt-contrib-concat': '~0.3.0',
         'grunt-contrib-uglify': '~0.2.0',
         'grunt-contrib-watch': '~0.4.0',
         'grunt-contrib-clean': '~0.4.0',
+        "grunt-contrib-cssmin":         "*",
+        "grunt-contrib-sass":           "*",
+        "grunt-cssc":                   "*",
+        "grunt-htmlhint":               "*",
+        "grunt-ngmin":                  "*",
+        "grunt-contrib-imagemin":       "*",
+        "matchdep":                     "*"
       },
     });
 
-    // Generate jquery.json file.
-    init.writePackageJSON(props.jqueryjson, props, function(pkg, props) {
+    // Generate new-project.json file.
+    init.writePackageJSON(props.projectjson, props, function(pkg, props) {
       // The jQuery site needs the "bugs" value as a string.
       if ('bugs' in props) { pkg.bugs = props.bugs; }
       return pkg;
